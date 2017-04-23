@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    static int R = 4, C = 4;
+    static int dp[][] = new int[R][C];
+    static int[] a = {1, 1, 0, -1, -1, -1, 0, 1};
+    static int[] b = {0, 1, 1, 1, 0, -1, -1, -1 };
+    static boolean va(int i, int j) {
+        return i >= 0 && j >= 0 && i < R && j < C;
+    }
+    static boolean ch(char x, char y) {
+        return (x - y == 1);
+    }
+    
+    static int ge(char m[][], int i, int j, char s) {
+        if(!va(i, j) || !ch(m[i][j], s) )
+            return 0;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        int c = 0;
+        for(int k = 0; k < 8; k++)
+            c = Math.max(c, 1 + ge(m, i + a[k], j + b[k], m[i][j]));
+        
+        return dp[i][j] = c;
+            
+        
+    }
+    static int get(char mat[][], char s) {
+        for(int i = 0; i < R; i++) 
+            for(int j = 0; j <C; j++)
+                dp[i][j] = -1;
+            int c = 0;
+         for(int i = 0; i < R; i++) 
+            for(int j = 0; j < C; j++)
+                if(mat[i][j] == s)
+            for(int k = 0; k < 8; k++)
+                c = Math.max(c, 1 + ge(mat, i + a[k], j + b[k], s));
+               
+            return c;
+        
+    }
+    public static void main(String[] args) {
+        char mat[][] = {{'a', 'a' , 'h', 'i'},
+                   {'z','b' , 'g', 'j'},
+                   {'y', 'f' , 'c', 'd'},
+                   {'e', 'd' , 'g', 'e'},
+                  };
+        System.out.println(get(mat,'a'));
+                       
+    }
+}

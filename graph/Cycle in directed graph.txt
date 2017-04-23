@@ -1,0 +1,65 @@
+import java.io.*;
+import java.util.*;
+class graph {
+    private LinkedList<Integer>[] adj;
+    private int v;
+    int count = 0;
+    public graph(int V) {
+        v = V;
+        adj = new LinkedList[V];
+        for(int  i = 0; i < V; i++)
+        {
+            adj[i] = new LinkedList();
+        }    
+    }
+    void addEdge(int v, int w) {
+        adj[v].add(w);
+    }
+    boolean dfs(int s, boolean vi[]) {
+        vi[s] = true;
+        Iterator<Integer> it = adj[s].listIterator();
+        while(it.hasNext()) {
+            int n = it.next();
+            if(!vi[n] && dfs(n,vi))
+                {
+                count++;
+                return true;
+            }
+            else if(vi[n] == true) {
+                count++;
+                return true;
+            }
+                
+        }
+        vi[s] = false;
+        return false;
+    }
+    boolean ch() {
+        boolean[] vi = new boolean[v];
+        for(int i = 0; i < v; i++) {
+            if(!vi[i] && dfs(i,vi) ) {
+                
+                System.out.println(count);
+                return true;
+            }
+                
+        }
+         return false;
+    }
+   
+
+}
+    
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        graph g = new graph(12);
+        for(int i = 0; i < 12; i++){
+            g.addEdge(i, sc.nextInt());
+        }
+        System.out.println(g.ch());
+         System.out.println(g.count);
+   
+}
+}

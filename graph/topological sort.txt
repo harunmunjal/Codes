@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class graph {
+    private int V;
+    private LinkedList<Integer>[] adj;
+    public graph(int v) {
+        V = v;
+        adj = new LinkedList[v];
+        for(int i = 0; i < v; i++) {
+            adj[i] = new LinkedList();
+        }
+    }
+    void addEdge(int v, int w) {
+        adj[v].add(w);
+    }
+    void topologicalMain(int v, boolean vi[], Stack s) {
+        vi[v] = true;
+        Iterator<Integer> it = adj[v].listIterator();
+        while(it.hasNext()) {
+            int n = it.next();
+            if(!vi[n])
+                topologicalMain(n, vi, s);
+        }
+        s.push(v);
+        
+        
+    }
+    void topological() {
+        boolean[] vi = new boolean[V];
+        Stack s = new Stack();
+        for(int i = 0; i < V; i++) {
+            if(!vi[i])
+                topologicalMain(i, vi, s);
+        }
+        while(!s.isEmpty())
+            System.out.println(s.pop());
+    }
+    
+
+    public static void main(String[] args) {
+        graph g = new graph(6);
+        g.addEdge(1, 2);
+        g.addEdge(0, 4);
+        g.addEdge(1, 3);
+        g.addEdge(4, 1);
+        g.addEdge(3, 2);
+        g.addEdge(4, 5);
+      
+        g.topological();
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+    }
+}

@@ -1,0 +1,75 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+  int ROW;
+    int COL;
+    int count;
+    public Solution(int m, int n) {
+        ROW = m;
+        COL = n;
+        count = 0;
+    }
+    boolean safe(int M[][], int row, int col, boolean vi[][]) {
+        return row >= 0 && col >= 0 && row < ROW && col < COL && M[row][col] == 1 && !vi[row][col];
+        
+    }
+    void dfs(int M[][], int row, int col, boolean vi[][]) {
+        int rowc[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int colc[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+        
+        vi[row][col] = true;
+        count++;
+        
+        
+        for(int k = 0; k < 8; k++) {
+            if(safe(M, row + rowc[k], col + colc[k], vi))
+                {
+               
+                dfs(M, row + rowc[k], col + colc[k], vi);
+              
+            }
+        }
+       
+    }
+    void countI(int M[][]) {
+        boolean[][] vi = new boolean[ROW][COL];
+        int c = 0,big = 0;
+        for(int i = 0; i < ROW; i++) {
+            for(int j = 0; j < COL; j++) {
+                
+                if(M[i][j] == 1 && !vi[i][j]){
+                  dfs(M,i,j,vi);
+                    if(count  > big)
+                        {
+                        big = count ;
+                       
+                    }
+                    count = 0;
+            }
+                
+                
+        }
+        }
+        System.out.println(big);
+        
+        
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int Row = sc.nextInt();
+        int Col = sc.nextInt();
+        int[][] M=  new int[Row][Col] ;
+        for(int i = 0; i < Row; i++) {
+            for(int j = 0; j < Col; j++)
+                M[i][j] = sc.nextInt();
+        }
+        
+        Solution s = new Solution(Row,Col);
+        s.countI(M);
+   
+}
+}

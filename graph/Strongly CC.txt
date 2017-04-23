@@ -1,0 +1,89 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class graph {
+    private int V;
+    private LinkedList<Integer>[] adj;
+    public graph(int v) {
+        V = v;
+        adj = new LinkedList[v];
+        for(int i = 0; i < v; i++) {
+            adj[i] = new LinkedList();
+            
+        }
+    }
+  void addEdge(int v,int w) {
+      adj[v].add(w);
+     
+  }
+        void dfsMain(int v, boolean vi[]) {
+        vi[v] = true;
+        Iterator<Integer> it =  adj[v].listIterator();
+        while(it.hasNext()) {
+            int n = it.next();
+            if(!vi[n])
+            dfsMain(n , vi);
+        }
+      
+        
+    }
+    void dfs(int v, boolean vi[], Stack s) {
+        vi[v] = true;
+        Iterator<Integer> it =  adj[v].listIterator();
+        while(it.hasNext()) {
+            int n = it.next();
+            if(!vi[n])
+            dfs(n , vi, s);
+        }
+        s.add(v);
+        
+    }
+    graph transpose() {
+        graph s = new graph(V);
+        for(int i = 0; i < V; i++) {
+            Iterator<Integer> it = adj[i].listIterator();
+            while(it.hasNext()) {
+                s.adj[it.next()].add(i);
+            }
+        }
+        return s;
+    }
+    void strong() {
+        boolean[] vi = new boolean[V];
+        Stack s = new Stack();
+        for(int i = 0; i < V; i++) {
+            if(!vi[i])
+                dfs(i, vi, s);
+        }
+        int c = 0;
+        graph gr = transpose();
+         vi = new boolean[V];
+         while(!s.isEmpty()){
+            
+             int i = (int)s.pop();
+              
+            if(!vi[i]) {
+                gr.dfsMain(i, vi);
+                c++;
+            }
+        }
+        System.out.print(c);
+    }
+    public static void main(String[] args) {
+         graph g = new graph(5);
+        g.addEdge(1, 0);
+        g.addEdge(0, 2);
+        g.addEdge(2, 1);
+        g.addEdge(0, 3);
+        g.addEdge(3, 4);
+ 
+  
+        g.strong();
+     
+   
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+    }
+}

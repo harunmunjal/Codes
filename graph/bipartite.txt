@@ -1,0 +1,87 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class graph {
+     private int V;
+     private LinkedList<Integer>[] adj;
+     public graph(int v) {
+         V = v;
+         adj = new LinkedList[v];
+         for(int i = 0; i  < v; i++) {
+             adj[i] = new LinkedList();
+         
+     }
+     }
+    void addEdge(int v, int w) {
+        adj[v].add(w);
+        adj[w].add(v);
+    }
+    boolean bipartiteMain(int v, boolean[] vi, int[] co) {
+        vi[v] = true;
+        Iterator<Integer> it = adj[v].listIterator();
+        while(it.hasNext()) {
+            int n = it.next();
+            if(!vi[n]) {
+                if(co[v] == 1)
+                    co[n] = 2;
+                else
+                    co[n] = 1;
+                bipartiteMain(n, vi, co);
+             
+        }
+            else if(co[n] == co[v])
+                return false;
+                
+    }
+        return true;
+    }
+        
+    boolean bipartite() {
+        boolean[] vi = new boolean[V];
+        int[] co = new int[V];
+        int count = 0;
+        for(int i = 0; i < V; i++) {
+            co[i] = 0;
+            
+        }
+        co[0] = 1;
+        for(int i = 0; i < V; i++) {
+            if(!vi[i] ) {
+               boolean s = bipartiteMain(i, vi, co);
+               if(s == true)
+                   {
+                count++;
+                continue;
+               }
+                else
+                    return false;
+            }
+            
+                
+        }
+        if(count == 1)
+            return true;
+        else
+            return false;
+    }
+    
+    
+    public static void main(String[] args) {
+        graph g = new graph(7);
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(0, 5);
+      //  g.addEdge(0, 6);
+      //  g.addEdge(5, 4);
+       // g.addEdge(4, 2);
+        g.addEdge(4, 6);
+        g.addEdge(1, 3);
+        g.addEdge(4, 6);
+        System.out.println(g.bipartite());
+   
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+    }
+}
