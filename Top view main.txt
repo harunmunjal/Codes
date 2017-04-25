@@ -1,0 +1,66 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+class Node {
+    int data;
+    Node left;
+    Node right;
+    public Node(int k) {
+        data = k;
+        left = right = null;
+    }
+}
+class qitem {
+    int hd;
+    Node n;
+    public qitem(Node x, int d) {
+        n = x;
+        hd = d;
+    }
+}
+class Tree {
+    Node root;
+    public Tree() {
+        root = null;
+    }
+    public Tree(Node x) {
+        root = x;
+    }
+    public void topView() {
+        if(root == null)
+            return;
+        HashSet<Integer>set = new HashSet<>();
+        Queue<qitem> q = new LinkedList<qitem>();
+        q.add(new qitem(root,0));
+        while(!q.isEmpty()) {
+            qitem qi = q.remove();
+            int hd = qi.hd;
+            Node n = qi.n;
+            if(!set.contains(hd)){
+                set.add(hd);
+                System.out.print(n.data+" ");
+            }
+            if(n.left != null) 
+                q.add(new qitem(n.left,hd - 1));
+            if(n.right != null) 
+                q.add(new qitem(n.right,hd + 1));                
+        }
+            
+    }
+}
+public class Solution {
+
+    public static void main(String[] args) {
+        Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.right = new Node(4);
+        root.left.right.right = new Node(5);
+        root.left.right.right.right = new Node(6);
+        Tree t = new Tree(root);
+        t.topView();
+
+}
+}

@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <math.h>
+long long int d, x, y;
+void eu(long long int a,long long int b) {
+	if(b == 0)
+	{
+		d = a;
+		x = 1;
+		y = 0;
+	}
+	else
+	{
+		eu(b, a % b);
+		long long int t = x;
+		x = y;
+		y = t - (a / b) * y;
+	}
+}
+long long int powe(long long int a, long long  int b, long long m ) {
+	if(b == 0)
+	    return 1;
+	else if(b % 2 == 0) 
+	    return powe((a*a)%m , b / 2,m);
+	else
+	    return (a * powe((a*a)%m, (b - 1) / 2,m))%m;
+}
+
+int main()
+{
+    long long int a, b, c, m;
+    scanf("%Ld %Ld %Ld %Ld",&a, &b, &c, &m);
+    a = powe(a, b, m);
+    eu(c, m);
+    x = (x % m + m) % m;
+    long long int f = (a * x % m) % m;
+    
+    
+    printf("%Ld", f);
+    return 0;
+}

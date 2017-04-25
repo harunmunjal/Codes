@@ -1,0 +1,24 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    static int ge(int a[]) {
+        int mx_s = -0xfff, mx = 0;
+        for(int i = 0; i < a.length; i++) {
+             mx = mx + a[i];
+             if(mx > mx_s)
+                 mx_s = mx;
+            if(mx < 0)
+                mx = 0;       
+        }
+        return mx_s;
+    }
+    public static void main(String[] args) {
+        int[] a = {-2, -3, 4, -1, -2, 1, 5, -3};
+        System.out.println(ge(a));
+        
+    }
+}

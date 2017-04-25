@@ -1,0 +1,76 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+struct List
+{
+    int info;
+    List * next;
+};
+
+
+
+
+int main()
+{
+    int a[] = { 1 , 2 , 3 , 4 , 5 };
+
+
+    List *head=NULL,*p=NULL,*q;
+
+
+
+
+    //create a linked list
+    q = new List;
+    q->info=a[0];
+    q->next=NULL;
+    head = p = q;
+    for(int i=1; i<5; i++)
+    {
+        q = new List;
+        q->info=a[i];
+        q->next=NULL;
+        p->next=q;
+        p=q;
+    }
+
+
+    //display the list
+    p = head;
+    while(p)
+    {
+        cout<<p->info<<" ";
+        p = p->next;
+    }
+    cout<<endl;
+
+
+
+
+    //reverse the list
+    p=head;
+    q=p->next;
+    p->next=NULL;
+    while(q)
+    {
+        q = (List*) ((int)p ^ (int)q ^ (int)q->next ^ (int)(q->next=p) ^ (int)(p=q));
+    }
+    head = p;
+
+
+
+
+    //display the list
+    p = head;
+    while(p)
+    {
+        cout<<p->info<<" ";
+        p = p->next;
+    }
+    cout<<endl;
+}

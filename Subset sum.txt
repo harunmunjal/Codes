@@ -1,0 +1,51 @@
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <string>
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+
+using namespace std;
+#define msum 1000
+void pq (bitset<msum> b, int a[], int n) {
+    for(int i = 0; i < n; i++) {
+        b[a[i]] ? cout<<"yes" : cout<<"no";
+    }
+}
+
+void pre(bitset<msum> &b, int a[], int n) {
+    b.reset();
+    b[0] = 1;
+    for(int i = 0 ; i < n; i++) 
+        b |= b << a[i];
+    
+        
+}
+int main() {
+    int a[] = {3, 1, 5};
+    int q[] = {6, 0};
+    
+    int n = sizeof(a) / sizeof(a[0]);
+    int n1 = 2;
+    bitset<msum> b;
+    pre(b, a, n);
+    pq(b,q,2);
+
+    return 0;
+}
