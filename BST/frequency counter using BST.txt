@@ -1,0 +1,94 @@
+class Node
+{
+    String data;
+    int count;
+    Node left;
+    Node right;
+    public Node(String k)
+    {
+        data = k;
+        left = null;
+        right = null;
+        count=1;
+    }
+}
+
+public class TreeT {
+    static Node root,t;
+    int max = 0;
+    public void ins(String k,int i)
+    {
+        if(k.length() == i)
+        root = ins(root,k);
+        else
+            return;
+    }    
+    private Node ins(Node n,String k)
+    {
+        if(n == null)
+            return new Node(k);
+        if(k.compareTo(n.data) == 0)
+        {
+            n.count+=1;
+        }
+        else if(k.compareTo(n.data) <0)
+        {
+            n.left = ins(n.left,k);
+            
+        }    
+        else 
+        {
+            n.right = ins(n.right,k);
+        }   
+        
+        return n;
+    }    
+  
+    public void ch(Node n)
+    {
+        
+        if(n == null)
+            return ;
+        ch(n.left);
+        if(n.count >max)
+        {
+            max = n.count;
+            t = n;
+            
+        }
+        
+        ch(n.right);
+       
+    }
+    public void display()
+    {
+        System.out.println(t.data +" "+ max);
+    }    
+      
+    public static void main(String[] args)
+    {
+       
+       
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int i = in.nextInt();
+        
+        TreeT b = new TreeT();
+        
+            while(in.hasNext())
+                {
+              // System.out.println(in.next().length());
+                b.ins(in.next(),i);
+            
+             
+        }
+        b.ch(root);
+        b.display();
+        
+        
+             
+        
+    }
+            
+    
+}

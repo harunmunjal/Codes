@@ -1,0 +1,54 @@
+ class Node
+{
+    int data;
+    Node left;
+    Node right;
+    public Node(int data)
+    {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+
+public class TreeT {
+    Node root;
+    // ******************** INSERT*******************
+    public void ins(int k)
+    {
+        root  = ins(root,k);
+    }
+    private Node ins(Node n,int k)
+    {
+        if(n == null)
+            return new Node(k);
+        if(n.data == k)
+        {
+            
+        }
+        else if(k < n.data)
+        {
+            n.left = ins(n.left,k);
+        }
+        else
+            n.right = ins(n.right,k);
+        return n;
+    }
+}
+ public static void main(String[] args)
+    {
+        TreeT b = new TreeT();
+        b.ins(12);
+        b.ins(10);
+        b.ins(15);
+        b.ins(20);
+        b.ins(25);
+        b.ins(8);
+        b.ins(26);
+        b.ins(6);
+             
+        System.out.println(b.se(15));
+        System.out.println(b.min());
+        System.out.println(b.max());
+        System.out.println(b.maxheight());
+    }

@@ -1,0 +1,86 @@
+
+ class Node
+{
+    int data;
+    Node left;
+    Node right;
+     int n;
+    public Node(int data)
+    {
+        this.data = data;
+        left = null;
+        right = null;
+        n = 1;
+    }
+}
+
+public class TreeT {
+    Node root;
+    // ******************** INSERT*******************
+    
+    private int sizeOf(Node x) {
+		return x == null ? 0 : x.n;
+	}
+    public void ins(int k)
+    {
+        root  = ins(root,k);
+    }
+    private Node ins(Node x,int k)
+    {
+        if(x == null)
+            return new Node(k);
+       
+        else if(k < x.data)
+        {
+            x.left = ins(x.left,k);
+        }
+        else
+            x.right = ins(x.right,k);
+        x.n = 1 + sizeOf(x.left) + sizeOf(x.right);
+        return x;
+    }
+    public void pr()
+        {
+        pr(root);
+    }
+    public void pr(Node x)
+    {
+        if(x == null)
+            return;
+        System.out.println(x.data +" "+ x.n);
+        pr(x.left);
+        pr(x.right);
+    }    
+    
+    
+    	public int getRank(int key) {
+		return  getRank(root, key);
+		
+	}
+
+	private int getRank(Node x, int key) {
+		if (key == x.data) return sizeOf(x.left);
+		else if (key < x.data) return getRank(x.left, key);
+		else return 1 + sizeOf(x.left) + getRank(x.right, key);
+	}
+
+ public static void main(String[] args)
+    {
+        TreeT b = new TreeT();
+        b.ins(8);
+        b.ins(5);
+        b.ins(3);
+        b.ins(2);
+        b.ins(6);
+        b.ins(4);
+        b.ins(10);
+        b.ins(12);
+        b.ins(14);
+        b.ins(13);
+        b.ins(9);
+   //  b.pr();
+    System.out.println( b.getRank(10));
+     
+
+    }
+}

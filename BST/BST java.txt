@@ -1,0 +1,124 @@
+package Practise;
+
+class Node{
+	int key;
+	Node right;
+	Node left;
+	public Node(int key){
+		this.key = key;
+		this.left = null;
+		this.right = null;
+	}
+}
+public class BinarySearchTree {
+	Node root;
+	//*********************INSERT***************************
+	public void Insert(int key){
+		root = Insert(root,key);
+	}
+	private Node Insert(Node n, int key){
+		if(n == null) return new Node(key);
+		//if(n.key == key){}
+		else if(key < n.key){
+			n.left = Insert(n.left,key);
+		}
+		else{
+			n.right = Insert(n.right,key);
+		}
+			
+		return n;
+	}
+	//*********************SEARCH***************************
+	public boolean Search(int key){
+		return Search(root,key);
+		
+	}
+	private boolean Search(Node n,int key){
+		if(n == null) return false;
+		if(n.key == key)return true;
+		if(n.key > key) return Search(n.left,key);
+		
+			return Search(n.right,key);
+	}
+	//*********************Get Min***************************
+	public int getMin(){
+		return getMin(root);
+	}
+	private int getMin(Node root)
+	{
+		if(root.left == null) return root.key;
+		return getMin(root.left);
+		
+		
+	}
+	//*********************GET Maximum***************************
+	public int getMax(){
+		return getMax(root);
+	}
+	private int getMax(Node root)
+	{
+		if(root.right == null) return root.key;
+		return getMax(root.right);
+		
+		
+	}
+	//*********************Delete Minimum***************************
+	public void delmin(){
+		root = delMin(root);
+	}
+	private Node delMin(Node n){
+		if(n.left == null)	
+			return n.right;
+		
+		n.left = delMin(n.left);
+		return n;
+	}
+	public void delmax(){
+		root = delMax(root);
+	}
+	private Node delMax(Node n){
+		if(n.right == null)	
+			return n.left;
+		
+		n.right = delMax(n.right);
+		return n;
+	}
+	//*********************Display***************************
+	public void display(){
+		display(root);
+	}
+	Node temp2 = root;
+	private void display(Node root){
+		if(root.left == null)
+		{
+			root = temp2.right;
+			display(root.right);
+		}
+		System.out.print(root.key+" ");
+		display(root.left);
+		
+		System.out.print(root.key+" ");
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BinarySearchTree b = new BinarySearchTree();
+		b.Insert(5);
+		b.Insert(4);
+		b.Insert(3);
+		b.Insert(5);
+		b.Insert(10);
+		b.Insert(9);
+		b.Insert(11);
+		b.display();
+		
+		System.out.println(b.Search(9));
+		System.out.println(b.getMin());
+		System.out.println(b.getMax());
+		b.delmin();
+		System.out.println(b.Search(1));
+		b.delmax();
+		System.out.println(b.Search(9));
+		
+	}
+
+}

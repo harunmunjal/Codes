@@ -1,0 +1,26 @@
+
+void top_view(Node root)
+{
+    
+    l(root);
+    r(root.right);
+   
+      
+          
+    
+}
+void l(Node root)
+{
+    if(root == null)
+        return;
+    l(root.left);
+        System.out.print(root.data+" ");
+}  
+void r(Node root)
+{
+    if(root == null)
+        return;
+    System.out.print(root.data+" ");
+    r(root.right);
+        
+} 
