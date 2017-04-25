@@ -1,0 +1,78 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Heap {
+    int[] a;
+    int n;
+    public Heap(int i){
+        this.n = 0;
+        a = new int[i + 1];
+    }
+    void insert(int x){
+        a[++n] = x;
+        swim(n);
+    }
+    void swap(int k1,int k2){
+        int temp = a[k1];
+        a[k1] = a[k2];
+        a[k2] = temp;
+    }
+    void swim(int n){
+        if(n < 2)
+            return;
+        if(a[n] > a[n / 2]){
+            swap(n, n / 2);
+            swim(n / 2);
+        }
+            
+    }
+    void sink(int k){
+         int l = 2 * k;
+        int r = 2 * k + 1;
+        int largest = k;
+        if(l <= n  && a[l] >= a[largest])
+            largest = l;
+        if( r <= n && a[largest] < a[r])
+            largest = r;
+        if(largest != k)
+            {
+            swap(largest, k);
+        sink(largest);
+        }
+    }
+    int delMax(){
+        if(n == 0)
+            return -1;
+        int max = a[1];
+        swap(1, n);
+        n--;
+        sink(1);
+        return max;
+    }
+    void display(){
+        for(int i = 1; i  <= n; i++){
+            System.out.println(a[i]);
+        }
+    }
+        
+    public static void main(String args[] )  {
+        Heap h = new Heap(7);
+        h.insert(5);
+        h.insert(3);
+        h.insert(1);
+        h.insert(6);
+        h.insert(2);
+        h.insert(4);
+        h.insert(7);
+      //  h.display();
+        System.out.println(h.delMax() +" "+ h.n);
+        System.out.println(h.delMax() +" "+ h.n);
+        System.out.println(h.delMax() +" "+ h.n);
+        System.out.println(h.delMax() +" "+ h.n);
+        System.out.println(h.delMax());  
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    }
+}
